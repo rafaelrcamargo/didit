@@ -1,0 +1,29 @@
+{
+  "name": "didit",
+  "version": "0.0.0",
+  "description": "Manage projects, services, and dependencies with ease.",
+  "keywords": [
+    "cli",
+    "typescript",
+    "chore-automation",
+    "project-management",
+    "dependency-management"
+  ],
+  "license": "MIT",
+  "author": "Rafael R. Camargo",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess \"node ./dist/index.js create\""
+  },
+  "dependencies": {
+    "@clack/prompts": "0.6.3",
+    "commander": "^10.0.1",
+    "picocolors": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "rome": "12.0.0",
+    "tsc-watch": "6.0.0",
+    "typescript": "5.0.4"
+  }
+}
