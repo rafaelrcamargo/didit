@@ -1,29 +1,45 @@
 {
   "name": "didit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Multi-language project scaffolding and scripting tool.",
-  "keywords": [
-    "cli",
-    "typescript",
-    "chore-automation",
-    "project-management",
-    "dependency-management"
-  ],
+  "repository": "rafaelrcamargo/didit",
   "license": "AGPL-3.0",
   "author": "Rafael R. Camargo",
-  "main": "./src/index.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node ./dist/index.js create\""
+    "build": "unbuild",
+    "dev:create": "tsc-watch --onSuccess \"node ./dist/index.js create\"",
+    "dev:release": "tsc-watch --onSuccess \"node ./dist/index.js release minor -p beta\"",
+    "lint": "rome ci ./src",
+    "prepack": "pnpm run build",
+    "release": "changelogen --release && npm publish && git push --follow-tags"
   },
   "dependencies": {
     "@clack/prompts": "0.6.3",
     "commander": "^10.0.1",
-    "picocolors": "^1.0.0"
+    "picocolors": "^1.0.0",
+    "semver": "^7.5.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "@types/semver": "^7.3.13",
+    "changelogen": "^0.5.3",
     "rome": "12.0.0",
     "tsc-watch": "6.0.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "unbuild": "^1.2.1"
   }
 }

@@ -1,4 +1,4 @@
-import { validate, events, licenses, getLicense } from "../utils";
+import { validate, events, licenses, getLicense, tools } from "../utils";
 import * as p from "@clack/prompts";
 import c from "picocolors";
 
@@ -21,11 +21,18 @@ export async function create() {
 					required: true,
 					options: [
 						{ label: c.red("Rust"), value: "rs" },
-						{ label: c.yellow("Python"), value: "py" },
 						{ label: c.blue("TypeScript"), value: "ts" },
 						{ label: c.dim("JavaScript"), value: "", hint: "I wouldn't" },
 					],
 				}),
+			tooling: ({ results }) =>
+				results.languages?.includes("ts") || results.languages?.includes("js")
+					? p.select({
+							message: "What tooling do you want to use?",
+							initialValue: "rome",
+							options: tools.ts,
+					  })
+					: undefined,
 			license: () =>
 				p.select({
 					message: "What license do you want to use?",
@@ -54,9 +61,7 @@ export async function create() {
 	}
 
 	p.note(
-		`cd ${opts.name}        \n${
-			opts.install ? "" : "pnpm install\n"
-		}pnpm run start ...`,
+		`cd ${opts.name}        ${opts.install ? "" : "\npnpm install"}`,
 		"Next steps:",
 	);
 

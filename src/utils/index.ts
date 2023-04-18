@@ -8,13 +8,17 @@ export const validate = {
 };
 
 export const events = {
+	cancel: (message: string) => {
+		p.cancel(c.red(message));
+		process.exit(1);
+	},
 	exit: () => {
 		p.cancel(c.red("Okay, bye!"));
 		process.exit(1);
 	},
 };
 
-export const licenses: Option = [
+export const licenses = [
 	{
 		label: "MIT",
 		hint: "Permissive",
@@ -39,3 +43,18 @@ export const licenses: Option = [
 
 export const getLicense = async (URL: string) =>
 	String((await (await fetch(URL)).json()).body);
+
+export const tools = {
+	ts: [
+		{
+			label: "Rome",
+			value: "rome",
+			hint: "Newer, faster & unified! ✨",
+		},
+		{
+			label: "Prettier & ESLint",
+			value: "prettier-eslint",
+			hint: "Broader support, but slower... 🐌",
+		},
+	],
+};

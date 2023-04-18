@@ -1,8 +1,23 @@
+import semver from "semver";
 import { program } from "commander";
-import * as p from "@clack/prompts";
-import c from "picocolors";
 
+import { events } from "./utils";
 import { create } from "./commands/create";
+
+program
+	.name("Didit")
+	.description("Multi-language project scaffolding and scripting tool.");
+
+program
+	.command("create")
+	.description("Create a new project.")
+	.option("-y, --yes");
+
+program
+	.command("release")
+	.description("Release a new version of the project.")
+	.argument("<level>", "The level of the release (major, minor, patch)")
+	.option("-p, --pre-release <version>", "The PR tag (alpha, beta, rc)");
 
 const main = async () => {
 	program.parse();
@@ -11,8 +26,16 @@ const main = async () => {
 		case "create":
 			await create();
 			break;
+
+		case "release":
+			console.log({
+				opts: program.commands[1]?.opts(),
+				inc: semver.inc("0.0.0", "minor"),
+			});
+			break;
+
 		default:
-			p.cancel(c.red("Unknown command :("));
+			events.cancel("Unknown command :(");
 			process.exit(1);
 	}
 };
