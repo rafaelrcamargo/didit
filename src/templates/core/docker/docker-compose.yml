@@ -1,0 +1,9 @@
+name: ""
+
+services:
+  redis:
+    profiles:
+      - donotstart
+    image: redis:alpine
+    ports:
+      - 6379:6379

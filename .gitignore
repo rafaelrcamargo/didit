@@ -1,11 +1,14 @@
 # Dependency directories
 node_modules/
 
-# TypeScript cache
+# Lock files
 *lock.*
 
-# dotenv environment variables file
+# Dotenv files
 .env.*
 
-# build / generate output
+# Build output
 dist
+
+# Example project
+example/

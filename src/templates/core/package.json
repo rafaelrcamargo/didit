@@ -1,0 +1,12 @@
+{
+	"name": "",
+	"description": "Didit base template. :D",
+	"repository": "",
+	"license": "",
+	"author": "",
+	"scripts": {
+		"lint": ""
+	},
+	"dependencies": {},
+	"devDependencies": {}
+}

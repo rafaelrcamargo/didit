@@ -1,18 +1,22 @@
 {
   "compilerOptions": {
-    "strict": true,
     "outDir": "./dist",
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "CommonJS",
+    "declaration": false,
+    "removeComments": true,
+
+    "strict": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "noImplicitReturns": true,
-    "noUnusedParameters": true,
     "moduleResolution": "node",
+    "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,
   },
-  "include": ["src"],
+  "include": ["./src/**/*"],
   "exclude": ["node_modules"]
 }

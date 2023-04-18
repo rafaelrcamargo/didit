@@ -1,0 +1,24 @@
+# dependencies
+/node_modules
+**/node_modules
+
+# Next.js
+next-env.d.ts
+**/.next
+**/out
+
+# .env files
+.env
+
+# Rust things
+**/target
+
+# Don't bother others w/ your editor
+**/.vscode
+.vscode/
+
+# Lock them out my repo
+*lock.*
+**/*.lock
+Cargo.lock
+**/Cargo.lock

@@ -1,3 +1,5 @@
+import PACKAGE from "../package.json";
+
 import semver from "semver";
 import { program } from "commander";
 
@@ -5,8 +7,9 @@ import { events } from "./utils";
 import { create } from "./commands/create";
 
 program
-	.name("Didit")
-	.description("Multi-language project scaffolding and scripting tool.");
+	.name(PACKAGE.name)
+	.version(PACKAGE.version)
+	.description(PACKAGE.description);
 
 program
 	.command("create")
