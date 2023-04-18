@@ -1,7 +1,7 @@
 {
   "name": "didit",
   "version": "0.0.0",
-  "description": "Manage projects, services, and dependencies with ease.",
+  "description": "Multi-language project scaffolding and scripting tool.",
   "keywords": [
     "cli",
     "typescript",
