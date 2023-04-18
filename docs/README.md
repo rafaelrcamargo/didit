@@ -1,6 +1,6 @@
-# Busy - Build tools made easy
+# DidIt
 
-Manage projects, services, and dependencies with ease.
+Multi-language project scaffolding and scripting tool.
 
 ## Goals
 
