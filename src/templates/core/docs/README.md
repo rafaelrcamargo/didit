@@ -1,4 +1,4 @@
-# 📖
+# 📖 {{ name }}
 
 > Didit base template. :D
 

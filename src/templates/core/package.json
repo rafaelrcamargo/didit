@@ -1,8 +1,8 @@
 {
-	"name": "",
+	"name": "{{ NAME }}",
 	"description": "Didit base template. :D",
 	"repository": "",
-	"license": "",
+	"license": "{{ LICENSE }}",
 	"author": "",
 	"scripts": {
 		"lint": ""

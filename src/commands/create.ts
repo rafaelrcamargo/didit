@@ -71,8 +71,8 @@ export async function create() {
 	fs.writeFileSync(path.join(root, "LICENSE"), license);
 
 	// Move the /templates/core/**/* to the project root
-	const core = path.join(__dirname, "..", "templates", "core");
-	copyRecursiveSync(core, root);
+	const core = path.resolve("./src/templates/core");
+	await copyDir(core, root, opts);
 
 	s.stop("Done!");
 
@@ -85,25 +85,43 @@ export async function create() {
 	p.outro(`You're all done, ${c.bgGreen(opts.name)} is ready to go! 🎉`);
 }
 
-/**
- * Look ma, it's cp -R.
- * @param {string} src  The path to the thing to copy.
- * @param {string} dest The path to the new copy.
- */
-const copyRecursiveSync = function (src: string, dest: string) {
-	const exists = fs.existsSync(src);
-	const stats = (exists && fs.statSync(src)) as fs.Stats;
-	const isDirectory = exists && stats.isDirectory();
+import { promises } from "fs";
 
-	if (isDirectory) {
-		fs.mkdirSync(dest);
-		fs.readdirSync(src).forEach(function (childItemName) {
-			copyRecursiveSync(
-				path.join(src, childItemName),
-				path.join(dest, childItemName),
-			);
-		});
-	} else {
-		fs.copyFileSync(src, dest);
+async function copyDir(
+	src: string,
+	dest: string,
+	opts: {
+		name: string;
+		license: string;
+	},
+) {
+	const entries = await promises.readdir(src, { withFileTypes: true });
+
+	try {
+		await promises.mkdir(dest);
+	} catch (_) {}
+
+	for (const entry of entries) {
+		const srcPath = path.join(src, entry.name);
+		const destPath = path.join(dest, entry.name);
+		if (entry.isDirectory()) {
+			await copyDir(srcPath, destPath, opts);
+		} else {
+			await promises.copyFile(srcPath, destPath);
+			const exeptions = [
+				"package.json",
+				"Cargo.toml",
+				"README.md",
+				"docker-compose.yml",
+			];
+
+			if (exeptions.includes(entry.name)) {
+				const content = fs.readFileSync(destPath, "utf8");
+				let newContent = content.replace(/{{\s*NAME\s*}}/g, opts.name);
+				newContent = newContent.replace(/{{\s*LICENSE\s*}}/g, opts.license);
+
+				fs.writeFileSync(destPath, newContent);
+			}
+		}
 	}
-};
+}
